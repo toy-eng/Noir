@@ -96,3 +96,112 @@
     outline-offset: 2px;
   }
 }
+
+/*
+ * Word documents reach the preview pane as plain HTML from mammoth, so they are
+ * styled here rather than through a dependency. Every value comes from the
+ * theme tokens, which keeps the pane monochrome in both appearances.
+ */
+@layer components {
+  .docx-preview {
+    color: var(--noir-foreground);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .docx-preview > * + * {
+    margin-top: 1em;
+  }
+
+  .docx-preview h1,
+  .docx-preview h2,
+  .docx-preview h3,
+  .docx-preview h4,
+  .docx-preview h5,
+  .docx-preview h6 {
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .docx-preview h1 {
+    font-size: 1.6em;
+  }
+
+  .docx-preview h2 {
+    font-size: 1.35em;
+  }
+
+  .docx-preview h3 {
+    font-size: 1.15em;
+  }
+
+  .docx-preview strong {
+    font-weight: 600;
+  }
+
+  .docx-preview em {
+    font-style: italic;
+  }
+
+  .docx-preview u {
+    text-decoration: underline;
+  }
+
+  .docx-preview s,
+  .docx-preview del {
+    text-decoration: line-through;
+  }
+
+  .docx-preview ul,
+  .docx-preview ol {
+    padding-left: 1.4em;
+  }
+
+  .docx-preview ul {
+    list-style: disc;
+  }
+
+  .docx-preview ol {
+    list-style: decimal;
+  }
+
+  .docx-preview li + li {
+    margin-top: 0.35em;
+  }
+
+  .docx-preview a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .docx-preview img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .docx-preview table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .docx-preview th,
+  .docx-preview td {
+    border: 1px solid var(--noir-line);
+    padding: 0.45em 0.6em;
+    text-align: left;
+  }
+
+  .docx-preview th {
+    font-weight: 600;
+  }
+
+  .docx-preview blockquote {
+    border-left: 2px solid var(--noir-line-strong);
+    padding-left: 1em;
+  }
+
+  .docx-preview hr {
+    border: 0;
+    border-top: 1px solid var(--noir-line);
+  }
+}
