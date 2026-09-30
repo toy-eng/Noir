@@ -1,68 +1,98 @@
+@import 'tailwindcss';
+
+/* Class-based dark mode - the appearance toggle owns the switch. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/*
+ * Two-tone palette. Light is the :root default and `.dark` inverts every token,
+ * so each utility flips with the theme and no component hardcodes a colour.
+ */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  color-scheme: light;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --noir-background: #ffffff;
+  --noir-foreground: #000000;
+  --noir-muted: #000000;
+  --noir-panel: #ffffff;
+  --noir-canvas: #ffffff;
+  --noir-raised: #ffffff;
+  --noir-line: #000000;
+  --noir-line-strong: #000000;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  /* The white theme never settles for grey, hovers included. */
+  --noir-hover-surface: #000000;
+  --noir-hover-ink: #ffffff;
+  --noir-cta-hover: #ffffff;
+  --noir-cta-hover-ink: #000000;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+.dark {
+  color-scheme: dark;
+
+  --noir-background: #000000;
+  --noir-foreground: #ffffff;
+  --noir-muted: #a3a3a3;
+  --noir-panel: #0a0a0a;
+  --noir-canvas: #0f0f0f;
+  --noir-raised: #141414;
+  --noir-line: rgb(255 255 255 / 0.1);
+  --noir-line-strong: rgb(255 255 255 / 0.25);
+
+  --noir-hover-surface: #141414;
+  --noir-hover-ink: #ffffff;
+  --noir-cta-hover: rgb(255 255 255 / 0.88);
+  --noir-cta-hover-ink: #000000;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/*
+ * Dropping files flips the whole target to white on black by swapping the
+ * tokens locally, so every colour inside follows without a special case. Only
+ * the white theme needs it, since it has no grey to fall back on.
+ */
+:root:not(.dark) .invert-scope {
+  --noir-background: #000000;
+  --noir-foreground: #ffffff;
+  --noir-muted: #ffffff;
+  --noir-panel: #000000;
+  --noir-canvas: #000000;
+  --noir-raised: #000000;
+  --noir-line: #ffffff;
+  --noir-line-strong: #ffffff;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+@theme inline {
+  --color-background: var(--noir-background);
+  --color-foreground: var(--noir-foreground);
+  --color-muted: var(--noir-muted);
+  --color-panel: var(--noir-panel);
+  --color-canvas: var(--noir-canvas);
+  --color-raised: var(--noir-raised);
+  --color-line: var(--noir-line);
+  --color-line-strong: var(--noir-line-strong);
+  --color-hover-surface: var(--noir-hover-surface);
+  --color-hover-ink: var(--noir-hover-ink);
+  --color-cta-hover: var(--noir-cta-hover);
+  --color-cta-hover-ink: var(--noir-cta-hover-ink);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  body {
+    background-color: var(--noir-background);
+    color: var(--noir-foreground);
   }
-  a:hover {
-    color: #747bff;
+
+  ::selection {
+    background-color: var(--noir-foreground);
+    color: var(--noir-background);
   }
-  button {
-    background-color: #f9f9f9;
+
+  :focus-visible {
+    outline: 2px solid var(--noir-foreground);
+    outline-offset: 2px;
   }
 }
